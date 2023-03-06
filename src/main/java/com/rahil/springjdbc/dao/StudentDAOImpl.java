@@ -1,18 +1,19 @@
 package com.rahil.springjdbc.dao;
 
-import com.rahil.springjdbc.api.Student;
+import com.rahil.springjdbc.domain.Student;
+import com.rahil.springjdbc.rowmapper.StudentRowMapper;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("studentDao")
 public class StudentDAOImpl implements StudentDAO {
 
     private JdbcTemplate jdbcTemplate;
+
 
 
     @Override
@@ -29,7 +30,10 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public void insert(List<Student> students) {wrw
+    public void insert(List<Student> students) {
+
+        System.out.println("Inside the method");
+
         String sql = "INSERT INTO STUDENT VALUES (?,?,?)";
 
         List<Object[]> sqlArgs = new ArrayList<>();
@@ -39,12 +43,53 @@ public class StudentDAOImpl implements StudentDAO {
             sqlArgs.add(studentData);
         }
 
-        int[] batchUpdate = jdbcTemplate.batchUpdate(sql, sqlArgs);
 
-        System.out.println("Number of record inserted successfully:: " + batchUpdate);
+        jdbcTemplate.batchUpdate(sql, sqlArgs);
+
 
         System.out.println("Batch update done!!");
 
+    }
+
+    @Override
+    public List<Student> findAllStudents() {
+        String sql = "SELECT * FROM STUDENT";
+
+        List<Student> studentList = jdbcTemplate.query(sql, new StudentRowMapper());
+
+        return studentList;
+    }
+
+    @Override
+    public void cleanUp() {
+        String sql = "TRUNCATE TABLE STUDENT";
+        jdbcTemplate.update(sql);
+        System.out.println("Table cleaned up>>>>");
+    }
+
+/*
+    @Override
+    public Student findStudentByRollNo(int rollNo) {
+        String sql = "SELECT * FROM STUDENT" +
+                " WHERE ROLL_NO = ?";
+        Student student = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), rollNo);
+        return student;
+    }
+*/
+
+    /*
+    Example of BeanPropertyRowMapper
+     */
+    @Override
+    public Student findStudentByRollNo(int rollNo) {
+        System.out.println("queryForObject() using BeanPropertyRowMapper default spring implementation!!");
+        String sql = "SELECT ROLL_NO as rollNo," +
+                " STUDENT_NAME as name," +
+                " STUDENT_ADDRESS as address" +
+                " FROM STUDENT" +
+                " WHERE ROLL_NO = ?";
+        Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Student.class), rollNo);
+        return student;
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

@@ -1,4 +1,4 @@
-package com.rahil.springjdbc.api;
+package com.rahil.springjdbc.domain;
 
 public class Student {
 
