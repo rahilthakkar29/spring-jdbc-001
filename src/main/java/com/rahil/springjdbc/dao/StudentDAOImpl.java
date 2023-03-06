@@ -7,8 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Repository("studentDao")
 public class StudentDAOImpl implements StudentDAO {
@@ -101,6 +100,24 @@ public class StudentDAOImpl implements StudentDAO {
         List<Student> students = jdbcTemplate.query(sql, new StudentResultSetExtractor(), name);
 
         return students;
+    }
+
+    @Override
+    public void groupByAddress() {
+        Map<String, ArrayList<String>> studentMap = new HashMap<>();
+        String sql = "SELECT * FROM STUDENT";
+        List<Student> query = jdbcTemplate.query(sql, new StudentResultSetExtractor());
+        for (Student temp : query) {
+            if (studentMap.containsKey(temp.getAddress())) {
+                studentMap.get(temp.getAddress()).add(temp.getName());
+            } else {
+                ArrayList<String> name = new ArrayList<>();
+                name.add(temp.getName());
+                studentMap.put(temp.getAddress(), name);
+            }
+        }
+        studentMap.forEach((key,value) -> System.out.println(key + " :: { " + value + " }"));
+        System.out.println(studentMap);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

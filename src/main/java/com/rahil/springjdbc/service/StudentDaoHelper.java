@@ -59,4 +59,8 @@ public class StudentDaoHelper {
         studentByName.forEach(System.out::println);
     }
 
+    public void groupByAddress() {
+        studentDAO.groupByAddress();
+    }
+
 }

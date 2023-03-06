@@ -26,4 +26,5 @@ public class StudentResultSetExtractor implements ResultSetExtractor<List<Studen
 
         return studentList;
     }
+
 }

@@ -35,6 +35,11 @@ public class Test {
         studentDaoHelper.queryUsingExtractor("John");
 
         /*
+        Group by address call
+         */
+        studentDaoHelper.groupByAddress();
+
+        /*
          cleanup the table
          */
         //studentDaoHelper.cleanTable();

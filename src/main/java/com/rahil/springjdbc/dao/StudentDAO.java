@@ -17,5 +17,7 @@ public interface StudentDAO {
 
     List<Student> findStudentByName(String name);
 
+    void groupByAddress();
+
 
 }
