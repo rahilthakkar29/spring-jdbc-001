@@ -13,17 +13,30 @@ public class Test {
                 new ClassPathXmlApplicationContext("beans.xml");
         System.out.println("Application context is loaded");
 
-        // Adding students
+        /*
+        Adding students
+        */
         StudentDaoHelper studentDaoHelper = context.getBean("studentDaoHelper", StudentDaoHelper.class);
        // studentDaoHelper.setUpStudentTable();
 
-        // fetching all the students
+        /*
+        fetching all the students
+         */
         //studentDaoHelper.showResult();
 
-        // fetch student using rollNo
-        studentDaoHelper.printSingleStudent(2);
+        /*
+         fetch student using rollNo
+         */
+        //studentDaoHelper.printSingleStudent(2);
 
-        // cleanup the table
+        /*
+        fetch students with name using result set extractor
+         */
+        studentDaoHelper.queryUsingExtractor("John");
+
+        /*
+         cleanup the table
+         */
         //studentDaoHelper.cleanTable();
 
 

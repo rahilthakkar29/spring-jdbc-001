@@ -1,6 +1,7 @@
 package com.rahil.springjdbc.dao;
 
 import com.rahil.springjdbc.domain.Student;
+import com.rahil.springjdbc.resultsetextractor.StudentResultSetExtractor;
 import com.rahil.springjdbc.rowmapper.StudentRowMapper;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -90,6 +91,16 @@ public class StudentDAOImpl implements StudentDAO {
                 " WHERE ROLL_NO = ?";
         Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Student.class), rollNo);
         return student;
+    }
+
+
+    @Override
+    public List<Student> findStudentByName(String name) {
+        String sql = "SELECT * FROM STUDENT WHERE STUDENT_NAME = ?";
+
+        List<Student> students = jdbcTemplate.query(sql, new StudentResultSetExtractor(), name);
+
+        return students;
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
