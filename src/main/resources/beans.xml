@@ -6,6 +6,7 @@
 
     <context:component-scan base-package="com.rahil"></context:component-scan>
 
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <constructor-arg name="url" value="jdbc:mysql://127.0.0.1:3306/School?useSSL=false"></constructor-arg>
         <constructor-arg name="username" value="root"></constructor-arg>

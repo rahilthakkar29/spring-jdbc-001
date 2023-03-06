@@ -19,5 +19,9 @@ public interface StudentDAO {
 
     void groupByAddress();
 
+    int updateStudent(Student student);
+
+    void updateStudent(List<Student> students);
+
 
 }

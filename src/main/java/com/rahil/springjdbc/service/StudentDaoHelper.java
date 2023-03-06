@@ -63,4 +63,11 @@ public class StudentDaoHelper {
         studentDAO.groupByAddress();
     }
 
+    public void update(Student student) {
+        studentDAO.updateStudent(student);
+    }
+
+    public void update(List<Student> students) {
+        studentDAO.updateStudent(students);
+    }
 }
