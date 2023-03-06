@@ -54,4 +54,9 @@ public class StudentDaoHelper {
         System.out.println(studentByRollNo);
     }
 
+    public void queryUsingExtractor(String name) {
+        List<Student> studentByName = studentDAO.findStudentByName(name);
+        studentByName.forEach(System.out::println);
+    }
+
 }
