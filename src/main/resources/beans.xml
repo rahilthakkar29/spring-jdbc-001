@@ -22,6 +22,10 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
 
+    <bean id="test" class="com.rahil.springjdbc.dao.StudentDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+
 
 
 </beans>
